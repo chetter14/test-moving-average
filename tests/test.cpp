@@ -1,4 +1,4 @@
-#include "../sources/movingAverage.h"
+#include "../source/movingAverage.h"
 
 
 int main()
