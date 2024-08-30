@@ -4,6 +4,7 @@
 #include <iostream>
 #include <random>
 #include <array>
+#include <fstream>
 
 
 void validityTest1()
@@ -40,7 +41,7 @@ void validityTest2()
 	std::cout << "\n\n";
 }
 
-void floatPerformanceTest(const std::vector<float>& values, int window)
+void floatPerformanceTest(std::ofstream& excelFile, const std::vector<float>& values, int window)
 {
 	std::cout << "Float performance test with window = " << window << ":\n";
 	Timer timer;
@@ -50,9 +51,11 @@ void floatPerformanceTest(const std::vector<float>& values, int window)
 
 	double duration = timer.getDuration();
 	std::cout << "\tResult time duration: " << duration << "s\n\n";
+
+	excelFile << "float, " << window << ", " << duration << "\n";
 }
 
-void doublePerformanceTest(const std::vector<double>& values, int window)
+void doublePerformanceTest(std::ofstream& excelFile, const std::vector<double>& values, int window)
 {
 	std::cout << "Double performance test with window = " << window << ":\n";
 	Timer timer;
@@ -62,6 +65,8 @@ void doublePerformanceTest(const std::vector<double>& values, int window)
 
 	double duration = timer.getDuration();
 	std::cout << "\tResult time duration: " << duration << "s\n\n";
+
+	excelFile << "double, " << window << ", " << duration << "\n";
 }
 
 int main()
@@ -85,12 +90,19 @@ int main()
 
 	std::array<int, 6> windowSizes{ 4, 8, 16, 32, 64, 128 };
 	
+	// Создаём excel файл
+	std::ofstream excelFile;
+	excelFile.open("result.csv");
+	excelFile << "Type, Window size, Duration\n";
+
+	// Вызываем проверку на производительность
 	for (int i = 0; i < 6; ++i)
-		floatPerformanceTest(floatVect, windowSizes[i]);
+		floatPerformanceTest(excelFile, floatVect, windowSizes[i]);
 	std::cout << "\n";
 
 	for (int i = 0; i < 6; ++i)
-		doublePerformanceTest(doubleVect, windowSizes[i]);
+		doublePerformanceTest(excelFile, doubleVect, windowSizes[i]);
 
+	excelFile.close();
 	return 0;
 }
