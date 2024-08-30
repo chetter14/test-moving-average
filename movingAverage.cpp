@@ -5,7 +5,7 @@
 template<typename T>
 std::vector<T> calculateSimpleMovingAverage(const std::vector<T>& values, int windowSize)
 {
-	// Вектор значений простых скользящих средних
+	// Вектор значений простых скользящих средних (при инициализации присваиваем нули)
 	std::vector<T> sma(values.size(), 0.0);
 
 	// Считаем "стартовое" значение скользящего среднего
@@ -13,7 +13,6 @@ std::vector<T> calculateSimpleMovingAverage(const std::vector<T>& values, int wi
 	int i;
 	for (i = 0; i < windowSize; ++i)
 		sum += values[i];
-
 	sma[windowSize - 1] = sum / windowSize;
 
 	// Далее расчитываем простое скользящее среднее с использованием значения на предыдущем шаге

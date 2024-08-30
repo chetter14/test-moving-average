@@ -83,9 +83,10 @@ int main()
 	std::vector<double> doubleVect(1'000'000, 0.0);
 	for (int i = 0; i < 1'000'000; ++i)
 	{
-		int randomNumber = dist(gen);
-		floatVect[i] = randomNumber;
-		doubleVect[i] = randomNumber;
+		float randomFloat = dist(gen);
+		double randomDouble = dist(gen);
+		floatVect[i] = randomFloat;
+		doubleVect[i] = randomDouble;
 	}
 
 	std::array<int, 6> windowSizes{ 4, 8, 16, 32, 64, 128 };
